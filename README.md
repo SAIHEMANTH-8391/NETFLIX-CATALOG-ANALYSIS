@@ -4,7 +4,6 @@
 
 ![BrandAssets_Logos_02-NSymbol](https://github.com/user-attachments/assets/e63f7ead-ab00-4922-a275-027852db58b9)
 
-# Netflix Catalog Analysis (Tableau, Excel, Python)
 
 An interactive Tableau dashboard and supporting analysis of **6,234 titles** in the Netflix catalog, showing how the catalog splits between movies and TV shows, which ratings and genres dominate, and how many titles were released each year.
 
@@ -18,21 +17,10 @@ This is a **catalog composition** analysis. It describes what is in the library,
 
 ## Dataset
 
-- **Source:** Netflix titles dataset on Kaggle (`netflix_titles.csv`, included in this repo). Link: [add the Kaggle dataset URL you used]
+- **Source:** Netflix titles dataset on Kaggle (`netflix_titles.csv`, included in this repo).
 - **Size:** 6,234 titles (4,265 movies and 1,969 TV shows)
 - **Key columns:** type, title, director, cast, country, date_added, release_year, rating, duration, listed_in (genres), description.
-  The messy parts of the data
-What I checked	What I found	What I did
-Director	Missing for 1,969 titles (31.6%)	Left it out of anything involving directors
-Cast	Missing for 570 titles (9.1%)	Left it out of anything involving cast
-Country	Missing for 476 titles (7.6%)	Counted them as "Unknown"
-Date added	Missing for 11 titles	Left them out of the release lag calculation
-Rating	Missing for 10 titles	Kept them as "Null" instead of guessing
-Duplicates	3 titles repeated	[say what you decided after checking them]
 
-One thing I noticed: the 1,969 missing directors is exactly the same as the number of TV shows. That probably isn't a coincidence. [After checking in Excel, say whether most of the missing directors are TV shows. If so, director is rarely filled in for TV rather than randomly missing.]
-
-What I found
 
 ## What this data can and cannot answer
 
@@ -68,16 +56,30 @@ What I found
 
 Run `analysis.py` to fill in the counts above.
 
-## Key findings
+### What I found
 
-1. **The catalog is about two-thirds movies.** Of 6,234 titles, 4,265 are movies (68.4%) and 1,969 are TV shows (31.6%).
-2. **The catalog skews toward mature content.** TV-MA (2,027 titles, 32.5%) and TV-14 (1,698, 27.2%) together make up 59.8% of all titles. Family and kids ratings are small by comparison: TV-Y7, TV-G, TV-Y, and G add up to 498 titles (8.0%).
-3. **Documentaries and stand-up comedy lead the genre combinations.** Documentaries (299) and Stand-Up Comedy (273) are the two largest genre combinations, followed by Dramas and International Movies (248). The top 10 combinations account for 1,858 titles (29.8%), and 5 of those 10 include "International Movies".
-4. **Catalog growth is recent.** The number of titles per release year stays low until the early 2000s, then rises steeply through the late 2010s, and TV shows start rising later than movies. [Add exact figures: titles released in 2008 vs 2018, from Tableau or `analysis.py`.]
-5. **Country concentration.** [Add the top 5 countries and their share of titles, from `analysis.py`.]
-6. **Release lag.** [Add the median gap between release year and the year added to Netflix, from `analysis.py`.]
+1. About two-thirds of the catalog is movies. 4,265 of the 6,234 titles are movies (68.4%) and 1,969 are TV shows (31.6%).
 
-> Note on finding 3: the "Top 10 genre" chart shows genre **combinations** (the `listed_in` field as written, for example "Dramas, International Movies"). Splitting the field into individual genres, which `analysis.py` does, gives the true count per genre.
+2. The catalog leans toward mature content. TV-MA (2,027 titles) and TV-14 (1,698) together make up almost 60% of everything. Kids and family ratings (TV-Y7, TV-G, TV-Y, and G) add up to just 498 titles, about 8%.
+
+3. International content is a big part of the library. "International Movies" is the single most common genre, with 1,927 titles (30.9%), followed by Dramas (1,623) and Comedies (1,113). Counting International Movies and International TV Shows together, about 47% of titles carry an international tag.
+
+4. My own genre chart was misleading, and I fixed it. My first dashboard showed Documentaries as the top genre. That was wrong in a subtle way: the chart counted whole genre strings like "Dramas, International Movies" as one item, so titles with several genres were being split up. Once I separated the genres properly, Documentaries dropped to fifth place (668 titles, 10.7%), and International Movies, Dramas, Comedies, and International TV Shows moved ahead of it.
+
+5. The United States and India dominate by country. The US appears on 2,610 titles (41.9%), India on 838 (13.4%), and the UK on 602 (9.7%). Titles can list more than one country, so these percentages don't add up to 100%. Another 476 titles (7.6%) have no country at all.
+
+6. TV shows are growing faster than movies. Comparing titles released in 2008 and 2018, movies went from 87 to 646 (roughly 7 times more), while TV shows went from 20 to 417 (roughly 21 times more). In 2019, TV show releases (443) overtook movie releases (400).
+
+7. Most titles arrive on Netflix quickly. The typical title is added about 1 year after it was released, and a quarter are added in the same year. The average is higher (4.6 years) because a small number of very old titles, some up to 93 years old, pull it up, so I used the median.
+
+### What I would look at next
+
+These are questions the data raised, not conclusions about Netflix's strategy:
+
+1. Is the balance really shifting toward TV shows? I would track the share of TV by year.
+2. Is the library thin for younger viewers? Only about 8% of titles have a kids or family rating, but I would need viewing data to say whether that matters.
+3. Is international content growing as a share of the catalog? I would track country share over time.
+4. How much does the catalog rely on brand new releases, given that the typical title arrives within a year?
 
 ## Takeaways for a catalog analyst
 
@@ -90,7 +92,7 @@ These are questions the data points to, not conclusions about Netflix's strategy
 ## Limitations
 
 - **Catalog, not viewership.** The data cannot show what is watched. Any statement about popularity needs a different dataset.
-- **Snapshot data.** The sharp drop in titles at the right edge of the "by year" chart reflects the dataset ending, not a real fall in content. Recent years are incomplete.
+- **Snapshot data.** The sharp drop in titles at the right edge of the "by year" chart reflects the dataset ending, not a real fall in content. Recent years   are incomplete.
 - **Genre combinations.** The genre chart counts combined genre strings, not individual genres.
 - **Missing values** in director, cast, and country limit those views.
 - **Single source.** One public dataset, with no way to verify its completeness.
