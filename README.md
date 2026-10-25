@@ -1,4 +1,4 @@
-# NETFLIX-MOVIE-RECOMMENDATION
+# NETFLIX-CATALOG-ANALYSIS
 
 <img width="960" alt="Logos-Readability-Netflix-logo" src="https://github.com/user-attachments/assets/caaf810c-a0cc-41c9-8f25-c63584d8dae1" />
 
