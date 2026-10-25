@@ -20,8 +20,19 @@ This is a **catalog composition** analysis. It describes what is in the library,
 
 - **Source:** Netflix titles dataset on Kaggle (`netflix_titles.csv`, included in this repo). Link: [add the Kaggle dataset URL you used]
 - **Size:** 6,234 titles (4,265 movies and 1,969 TV shows)
-- **Key columns:** type, title, director, cast, country, date_added, release_year, rating, duration, listed_in (genres), description
-- **Snapshot date:** [add the latest date_added in your file; the data is a snapshot, not live]
+- **Key columns:** type, title, director, cast, country, date_added, release_year, rating, duration, listed_in (genres), description.
+  The messy parts of the data
+What I checked	What I found	What I did
+Director	Missing for 1,969 titles (31.6%)	Left it out of anything involving directors
+Cast	Missing for 570 titles (9.1%)	Left it out of anything involving cast
+Country	Missing for 476 titles (7.6%)	Counted them as "Unknown"
+Date added	Missing for 11 titles	Left them out of the release lag calculation
+Rating	Missing for 10 titles	Kept them as "Null" instead of guessing
+Duplicates	3 titles repeated	[say what you decided after checking them]
+
+One thing I noticed: the 1,969 missing directors is exactly the same as the number of TV shows. That probably isn't a coincidence. [After checking in Excel, say whether most of the missing directors are TV shows. If so, director is rarely filled in for TV rather than randomly missing.]
+
+What I found
 
 ## What this data can and cannot answer
 
